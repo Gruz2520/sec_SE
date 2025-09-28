@@ -8,3 +8,6 @@
 - [ ] `ruff/black/isort` локально
 - [ ] `pytest -q` зелёный
 - [ ] `pre-commit run --all-files`
+
+## Чек-лист ревью
+[Проверка кода по чек-листу ревью](docs/REVIEW_CHECKLIST.md)
