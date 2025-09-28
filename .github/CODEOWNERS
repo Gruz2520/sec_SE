@@ -1,0 +1,15 @@
+# Глобальный владелец (на курс)
+*                 @Gruz2520
+
+# Владельцы по компонентам WishList API
+app/main.py       @Gruz2520
+tests/            @Gruz2520
+
+# Конфигурационные файлы
+pyproject.toml    @Gruz2520
+requirements*.txt @Gruz2520
+
+# CI/CD и документация
+.github/          @Gruz2520
+README.md         @Gruz2520
+SECURITY.md       @Gruz2520
