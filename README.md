@@ -38,7 +38,18 @@ docker compose up --build
 ```
 
 ## Эндпойнты
+
+### WishList API
+- `POST /wishlist/items` — создать элемент списка желаний
+- `GET /wishlist/items` — получить все элементы (с фильтрацией по priority и is_purchased)
+- `GET /wishlist/items/{item_id}` — получить конкретный элемент
+- `PUT /wishlist/items/{item_id}` — обновить элемент
+- `DELETE /wishlist/items/{item_id}` — удалить элемент
+
+### Системные
 - `GET /health` → `{"status": "ok"}`
+
+### Legacy (для совместимости)
 - `POST /items?name=...` — демо-сущность
 - `GET /items/{id}`
 
