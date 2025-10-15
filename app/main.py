@@ -150,21 +150,10 @@ def delete_wishlist_item(item_id: int):
     raise ApiError(code="not_found", message="wishlist item not found", status=404)
 
 
-# Legacy endpoints. Оставим пока что, для совместимости с существующими тестами
+# Legacy endpoints.
 @app.post("/items")
-def create_item(name: str):
-    if not name or len(name) > 100:
-        raise ApiError(
-            code="validation_error", message="name must be 1..100 chars", status=422
-        )
-    item = {"id": len(_DB["wishlist_items"]) + 1, "name": name}
-    _DB["wishlist_items"].append(item)
-    return item
-
-
-@app.get("/items/{item_id}")
-def get_item(item_id: int):
-    for it in _DB["wishlist_items"]:
-        if it["id"] == item_id:
-            return it
-    raise ApiError(code="not_found", message="item not found", status=404)
+def deprecated_item():
+    raise HTTPException(
+        status_code=410,
+        detail="This endpoint is deprecated. Use /wishlist/items instead.",
+    )
