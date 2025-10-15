@@ -49,7 +49,7 @@ docker compose up --build
 ### Системные
 - `GET /health` → `{"status": "ok"}`
 
-### Legacy (для совместимости)
+### Legacy (Возвращают ошибки)
 - `POST /items?name=...` — демо-сущность
 - `GET /items/{id}`
 
