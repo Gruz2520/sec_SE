@@ -126,8 +126,8 @@ def test_get_wishlist_item_not_found():
     assert response.status_code == 404
 
     data = response.json()
-    assert data["error"]["code"] == "not_found"
-    assert "wishlist item not found" in data["error"]["message"]
+    assert data["status"] == 404
+    assert "not found" in data["detail"].lower()
 
 
 def test_update_wishlist_item():
@@ -161,7 +161,8 @@ def test_update_wishlist_item_not_found():
     assert response.status_code == 404
 
     data = response.json()
-    assert data["error"]["code"] == "not_found"
+    assert data["status"] == 404
+    assert "not found" in data["detail"].lower()
 
 
 def test_delete_wishlist_item():
@@ -190,4 +191,5 @@ def test_delete_wishlist_item_not_found():
     assert response.status_code == 404
 
     data = response.json()
-    assert data["error"]["code"] == "not_found"
+    assert data["status"] == 404
+    assert "not found" in data["detail"].lower()
