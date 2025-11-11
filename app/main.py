@@ -1,4 +1,5 @@
 from datetime import datetime
+from decimal import Decimal
 from typing import List, Optional
 
 from fastapi import FastAPI, HTTPException, Request
@@ -24,7 +25,9 @@ class WishListItemBase(BaseModel):
     description: Optional[str] = Field(
         None, max_length=1000, description="Описание элемента"
     )
-    price: Optional[float] = Field(None, ge=0, description="Цена элемента")
+    price: Optional[float] = Field(
+        None, ge=0, description="Цена элемента (будет преобразована в Decimal)"
+    )
     priority: str = Field(
         "medium", pattern="^(low|medium|high)$", description="Приоритет элемента"
     )
@@ -37,7 +40,9 @@ class WishListItemCreate(WishListItemBase):
 class WishListItemUpdate(BaseModel):
     name: Optional[str] = Field(None, min_length=1, max_length=200)
     description: Optional[str] = Field(None, max_length=1000)
-    price: Optional[float] = Field(None, ge=0)
+    price: Optional[float] = Field(
+        None, ge=0, description="Цена элемента (будет преобразована в Decimal)"
+    )
     priority: Optional[str] = Field(None, pattern="^(low|medium|high)$")
     is_purchased: Optional[bool] = None
 
@@ -167,14 +172,26 @@ def create_wishlist_item(item: WishListItemCreate):
                 item.description, "description", max_length=1000
             )
 
+        # Валидация и нормализация цены в Decimal
+        validated_price = None
+        if item.price is not None:
+            validated_price = input_validator.validate_decimal(
+                item.price,
+                "price",
+                min_value=Decimal("0"),
+                max_digits=12,
+                decimal_places=2,
+            )
+
         new_id = len(_DB["wishlist_items"]) + 1
-        now = datetime.now()
+        # Нормализация datetime в UTC
+        now = input_validator.normalize_datetime_utc(datetime.now())
 
         wishlist_item = {
             "id": new_id,
             "name": validated_name,
             "description": validated_description,
-            "price": item.price,
+            "price": float(validated_price) if validated_price else None,
             "priority": item.priority,
             "is_purchased": False,
             "created_at": now,
@@ -224,10 +241,24 @@ def update_wishlist_item(item_id: int, item_update: WishListItemUpdate):
     for i, item in enumerate(_DB["wishlist_items"]):
         if item["id"] == item_id:
             update_data = item_update.model_dump(exclude_unset=True)
+
+            # Валидация и нормализация цены в Decimal, если она обновляется
+            if "price" in update_data and update_data["price"] is not None:
+                update_data["price"] = float(
+                    input_validator.validate_decimal(
+                        update_data["price"],
+                        "price",
+                        min_value=Decimal("0"),
+                        max_digits=12,
+                        decimal_places=2,
+                    )
+                )
+
             for field, value in update_data.items():
                 item[field] = value
 
-            item["updated_at"] = datetime.now()
+            # Нормализация datetime в UTC
+            item["updated_at"] = input_validator.normalize_datetime_utc(datetime.now())
             _DB["wishlist_items"][i] = item
             return item
 
