@@ -1,0 +1,15 @@
+# Hadolint configuration
+# https://github.com/hadolint/hadolint
+
+# Игнорируемые правила
+ignored:
+  # DL3008: Pin versions in apt get install
+  # - DL3008
+  # DL3009: Delete the apt-get lists after installing something
+  # - DL3009
+  # DL3015: Avoid additional packages by using `--no-install-recommends`
+  # - DL3015
+
+failure-threshold: warning
+
+format: tty

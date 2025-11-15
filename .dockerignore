@@ -1,17 +1,74 @@
+# Git
 .git
 .gitignore
 .gitattributes
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-*.sqlite
-*.db
+
+# Python
+__pycache__
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info
+dist
+build
+.eggs
+
+# Virtual environments
+venv/
 .venv/
-dist/
-build/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
 .pytest_cache/
 .coverage
 htmlcov/
-node_modules/
+.tox/
+.hypothesis/
+
+# Documentation
+docs/
+*.md
+!README.md
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+
+# Docker
+Dockerfile*
+docker-compose*.yml
+compose*.yaml
+.dockerignore
+
+# Environment
 .env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Uploads
+uploads/
+
+# Development files
+requirements-dev.txt
+.pre-commit-config.yaml
+ruff.toml
+pyproject.toml
