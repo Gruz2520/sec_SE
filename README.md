@@ -1,5 +1,7 @@
 # SecDev Course Template
 
+![CI](https://github.com/Gruz2520/sec_SE/actions/workflows/ci.yml/badge.svg)
+
 Стартовый шаблон для студенческого репозитория (HSE SecDev 2025).
 
 ## Быстрый старт
