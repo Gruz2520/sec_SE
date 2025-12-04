@@ -1,0 +1,22 @@
+title = "course default gitleaks config"
+
+[extend]
+# Используем встроенные правила по умолчанию
+
+[allowlist]
+description = "ignore non-sensitive patterns"
+paths = [
+  "EVIDENCE/",   # отчёты и артефакты
+  "tests/",      # тестовые файлы могут содержать примеры
+  "docs/",       # документация
+]
+
+commits = []
+
+regexes = [
+  '''TEST_SECRET_DO_NOT_USE''',
+  '''example.*password.*=.*test''',
+  '''SECRET_PATTERNS\s*=\s*\[''',  # паттерны для обнаружения секретов в коде
+  '''r'password\\s\*=\\s\*''',  # regex паттерны в коде
+  '''r'secret\\s\*=\\s\*''',  # regex паттерны в коде
+]
