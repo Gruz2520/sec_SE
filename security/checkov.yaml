@@ -1,0 +1,9 @@
+quiet: false
+compact: true
+framework:
+  - kubernetes
+  - terraform
+  - dockerfile
+  - docker_compose
+
+skip-check: []

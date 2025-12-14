@@ -1,0 +1,7 @@
+ignored:
+  - DL3008
+  - DL3018
+
+failure-threshold: warning
+
+format: json
