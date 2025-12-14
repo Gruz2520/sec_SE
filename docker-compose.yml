@@ -20,15 +20,13 @@ services:
       start_period: 10s
       retries: 3
     restart: unless-stopped
-    # Безопасность: запуск под non-root пользователем
-    # Для дополнительного харднинга:
-    # security_opt:
-    #   - no-new-privileges:true
-    # cap_drop:
-    #   - ALL
-    # cap_add:
-    #   - NET_BIND_SERVICE
-    # read_only: true
-    # tmpfs:
-    #   - /tmp
-    #   - /var/tmp
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /var/tmp
