@@ -9,7 +9,7 @@ RUN apt-get update && \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-COPY requirements.txt pyproject.toml ./
+COPY requirements.txt ./
 
 RUN --mount=type=cache,target=/root/.cache/pip \
     pip install --upgrade pip && \
